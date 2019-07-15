@@ -2,10 +2,12 @@
 const mongoose = require('mongoose')
 const uriUtil = require('mongodb-uri')
 
+const config = require('../config')
+
 // Create a new connection
 mongoose.Promise = global.Promise
 
-const dbURI = uriUtil.formatMongoose(process.env.MONGO_URI)
+const dbURI = uriUtil.formatMongoose(config.mongoUri)
 const options = {
     autoReconnect: true,
     useNewUrlParser: true

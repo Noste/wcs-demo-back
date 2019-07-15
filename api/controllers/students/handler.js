@@ -1,7 +1,9 @@
+const config = require('../../config')
+
 const { createStudent, listStudents } = require('./queries')
 const { generatePreSignedUrl } = require('../../core/s3')
 
-const bucketName = process.env.S3_BUCKET
+const bucketName = config.s3Bucket
 
 const createItem = async (req, res) => {
     try {
@@ -21,7 +23,6 @@ const getPreSignedUrl = async (req, res) => {
     try {
         const { keyName, operation } = req.body
         const preSignedUrl = await generatePreSignedUrl(operation, bucketName, keyName)
-
         if (preSignedUrl) {
             res.apiResponse(preSignedUrl)
         }

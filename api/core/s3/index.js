@@ -1,12 +1,17 @@
 const AWS = require('aws-sdk')
 
-const s3 = new AWS.S3({
+const config = require('../../config')
+
+const s3Setup = {
     apiVersion: 'latest',
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: 'eu-central-1',
+    accessKeyId: config.aws.accessKeyId,
+    secretAccessKey: config.aws.secretAccessKey,
+    region: config.aws.region,
     signatureVersion: 'v4'
-})
+}
+
+
+const s3 = new AWS.S3(s3Setup)
 
 const generatePreSignedUrl = (operation, bucket, key, expiresIn = 60) => {
     const params = {
